@@ -10,6 +10,7 @@ import { Loading } from './src/components/Loading';
 import { AuthContextProvider } from './src/contexts/AuthContext';
 import { Find } from './src/screens/Find';
 import { New } from './src/screens/New';
+import { Pools } from './src/screens/Pools';
 import { SignIn } from './src/screens/SignIn';
 import { THEME } from './src/styles/theme';
 
@@ -19,7 +20,7 @@ export default function App() {
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      <AuthContextProvider>{!fontsLoaded ? <Loading /> : <Find />}</AuthContextProvider>
+      <AuthContextProvider>{!fontsLoaded ? <Loading /> : <Pools />}</AuthContextProvider>
     </NativeBaseProvider>
   );
 }
