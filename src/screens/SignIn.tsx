@@ -1,10 +1,12 @@
+import { Center, Text } from 'native-base';
 import React from 'react';
-import {Center, Text} from "native-base";
 
-export function SignIn () {
-	return (
-		<Center flex={1} bgColor='gray.900'>
-			<Text color="white" fontSize={24}>halloo </Text>
-		</Center>
-	);
-};
+export function SignIn() {
+  return (
+    <Center flex={1} bgColor="gray.900">
+      <Text color="white" fontSize={24}>
+        AOBA
+      </Text>
+    </Center>
+  );
+}
