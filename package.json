@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.2",
+    "@expo/vector-icons": "^13.0.0",
     "@types/react": "~18.0.0",
     "@types/react-native": "~0.69.1",
     "expo": "~46.0.16",
@@ -31,7 +32,8 @@
     "@typescript-eslint/parser": "^5.42.0",
     "eslint": "^8.26.0",
     "eslint-config-universe": "^11.1.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "react-native-svg-transformer": "^1.0.0"
   },
   "overrides": {
     "react": "18.0.0"
