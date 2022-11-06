@@ -19,7 +19,7 @@ export function Find() {
 
         <Input value={pool} onChangeText={setPool} placeholder="Qual o código do bolão?" mb={2} />
 
-        <Button title="BUSCAR BOLÃO POR CÓDIGO" />
+        <Button title="BUSCAR BOLÃO" />
       </VStack>
     </VStack>
   );
