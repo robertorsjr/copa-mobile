@@ -4,6 +4,7 @@ import * as WebBrowser from 'expo-web-browser';
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
 import { clientId } from '../configs';
+import { api, endpoints } from '../services/api';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -42,7 +43,20 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }, [response]);
 
   async function signInWithGoogle(accessToken: string) {
-    console.log(accessToken);
+    try {
+      setIsUserLoading(true);
+      const tokenResponse = await api.post(endpoints.signIn, {
+        access_token: accessToken,
+      });
+      api.defaults.headers.common['Authorization'] = `Bearer ${tokenResponse.data.token}`;
+      const userInfoResponse = await api.get(endpoints.me);
+      setUser(userInfoResponse.data.user);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      setIsUserLoading(false);
+    }
   }
 
   async function signIn() {
@@ -56,8 +70,9 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       setIsUserLoading(false);
     }
   }
+
   return (
-    <AuthContext.Provider value={{ signIn, user, isAuthenticated: true, isUserLoading }}>
+    <AuthContext.Provider value={{ signIn, user, isAuthenticated: !!user.name, isUserLoading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -21,7 +21,7 @@ export function Button({ title, type = 'PRIMARY', ...rest }: ButtonProps) {
         bg: IS_SECONDARY ? 'red.600' : 'yellow.600',
       }}
       _loading={{
-        _spinner: { color: 'black' },
+        _spinner: { color: IS_SECONDARY ? 'white' : 'black' },
       }}
       {...rest}>
       <Text fontSize="sm" fontFamily="heading" color={IS_SECONDARY ? 'white' : 'black'}>
