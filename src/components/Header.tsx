@@ -8,9 +8,15 @@ interface Props {
   title: string;
   showBackButton?: boolean;
   showShareButton?: boolean;
+  handleShare?: () => void;
 }
 
-export function Header({ title, showBackButton = false, showShareButton = false }: Props) {
+export function Header({
+  title,
+  showBackButton = false,
+  handleShare,
+  showShareButton = false,
+}: Props) {
   const EmptyBoxSpace = () => <Box w={6} h={6} />;
   const { navigate } = useNavigation();
 
@@ -27,7 +33,7 @@ export function Header({ title, showBackButton = false, showShareButton = false 
           {title}
         </Text>
 
-        {showShareButton ? <ButtonIcon icon={Export} /> : <EmptyBoxSpace />}
+        {showShareButton ? <ButtonIcon icon={Export} onPress={handleShare} /> : <EmptyBoxSpace />}
       </HStack>
     </HStack>
   );

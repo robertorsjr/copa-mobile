@@ -1,5 +1,6 @@
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Heading, HStack, Text, VStack } from 'native-base';
+// eslint-disable-next-line import/namespace
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import { Participants, ParticipantProps } from './Participants';
 
@@ -11,11 +12,11 @@ export interface PoolPros {
   createdAt: string;
   owner: {
     name: string;
-  },
+  };
   participants: ParticipantProps[];
   _count: {
     participants: number;
-  }
+  };
 }
 
 interface Props extends TouchableOpacityProps {
@@ -35,8 +36,7 @@ export function PoolCard({ data, ...rest }: Props) {
         alignItems="center"
         rounded="sm"
         mb={3}
-        p={4}
-      >
+        p={4}>
         <VStack>
           <Heading color="white" fontSize="md" fontFamily="heading">
             {data.title}
@@ -47,10 +47,7 @@ export function PoolCard({ data, ...rest }: Props) {
           </Text>
         </VStack>
 
-        <Participants
-          count={data._count.participants}
-          participants={data.participants}
-        />
+        <Participants count={data._count.participants} participants={data.participants} />
       </HStack>
     </TouchableOpacity>
   );
