@@ -1,4 +1,4 @@
-import { Box, useToast, FlatList } from 'native-base';
+import { useToast, FlatList } from 'native-base';
 import { useEffect, useState } from 'react';
 
 import { api, endpoints } from '../services/api';
@@ -10,8 +10,6 @@ interface Props {
 
 export function Guesses({ poolId }: Props) {
   const [games, setGames] = useState<GameProps[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [firstTeamPoints, setFirstTeamPoints] = useState('');
   const [secondTeamPoints, setSecondTeamPoints] = useState('');
 
@@ -23,7 +21,6 @@ export function Guesses({ poolId }: Props) {
 
   async function fetchGames() {
     try {
-      setIsLoading(true);
       const { data } = await api.get(endpoints.games(poolId));
       setGames(data.games);
     } catch (error) {
@@ -33,18 +30,16 @@ export function Guesses({ poolId }: Props) {
         bgColor: 'red.500',
       });
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   }
 
   async function handleGuessConfirm(gameId: string) {
     try {
-      setIsSubmitLoading(true);
       await api.post(endpoints.guess(poolId, gameId), {
         firstTeamPoints: Number(firstTeamPoints),
         secondTeamPoints: Number(secondTeamPoints),
       });
+
       toast.show({
         title: 'Palpite feito com sucesso!',
         placement: 'top',
@@ -53,13 +48,11 @@ export function Guesses({ poolId }: Props) {
       fetchGames();
     } catch (error) {
       toast.show({
-        title: 'Ocorreu um erro ao tentar fazer um palpite',
+        title: error.response?.data?.message || 'Ocorreu um erro ao tentar fazer um palpite',
         placement: 'top',
         bgColor: 'red.500',
       });
       throw error;
-    } finally {
-      setIsSubmitLoading(false);
     }
   }
 
@@ -73,7 +66,6 @@ export function Guesses({ poolId }: Props) {
           onGuessConfirm={() => handleGuessConfirm(item.id)}
           setFirstTeamPoints={setFirstTeamPoints}
           setSecondTeamPoints={setSecondTeamPoints}
-          isLoading={isSubmitLoading}
         />
       )}
     />
